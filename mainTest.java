@@ -1,4 +1,95 @@
-package grafo;
+public static int IngresarValor(){
+		int n=0;
+		try{
+			BufferedReader entrada= new BufferedReader(new InputStreamReader(System.in));
+			
+			n= new Integer(entrada.readLine());
+			
+		}catch(Exception exc){
+			System.out.println(exc);
+		}
+		
+		
+		return n;
+	}
+	public static char IngresarOpcion(){
+		char value=0;
+		try{
+			BufferedReader entrada= new BufferedReader(new InputStreamReader(System.in));
+			
+			value=(char) (entrada.readLine().charAt(0));
+			
+		}catch(Exception exc){
+			System.out.println(exc);
+		}
+		
+		
+		return value;
+	}
+	
+	
+	public static void menu(char opc, Grafo predictor){
+		System.out.println("Ingrese opcion");
+		String genero=" ";
+		switch(opc){
+		case 'a':System.out.println("Ingrese  genero que quiere buscar");
+				 genero =generarString();
+				System.out.println("Ingrese la cantidad de generos de mayor incidencia de busqueda");
+				int N=IngresarValor();
+			resolucionA(predictor,N,genero);
+		break;
+		case 'b':System.out.println("Ingrese  genero que quiere buscar");
+			 genero =generarString();
+			resolucionB(predictor, genero);
+		break;
+		case 'c': System.out.println("Ingrese  genero que quiere buscar");
+		 genero =generarString();
+			resolucionC( predictor,genero);
+		break;
+		}
+	}
+
+	private static String generarString() {
+		String value=" ";
+		try{
+			BufferedReader entrada= new BufferedReader(new InputStreamReader(System.in));
+			
+			value= entrada.readLine();
+			
+		}catch(Exception exc){
+			System.out.println(exc);
+		}
+		
+		
+		return value;
+	}
+
+	private static void resolucionC(Grafo predictor, String gene) {
+		ArrayList<vertice> vol= predictor.generosAfines(gene);
+		System.out.println("cant generos afines "+vol.size());
+
+		for (vertice vertice : vol) {
+			System.out.print(vertice.getNombre()+" ");
+		}
+		
+	}
+
+	private static void resolucionB(Grafo predictor,String gene) {
+		 ArrayList<vertice> ab=predictor.generosBuscadosPostA(gene);
+			System.out.println("tamanio punto b "+ab.size());
+		 for (vertice vertice : ab) {
+			System.out.print(vertice.getNombre()+" ");
+		}
+		
+	}
+
+	private static void resolucionA(Grafo predictor, int cantNum, String genero) {
+		ArrayList<String> aux= predictor.getNgeneros(genero, cantNum);
+		 for (String a : aux) {
+				System.out.println(a);
+			}
+		
+	}package grafo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -35,7 +126,7 @@ public class mainTest {
 		int n=0;
 		try{
 			BufferedReader entrada= new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Ingrese el N");
+			
 			n= new Integer(entrada.readLine());
 			
 		}catch(Exception exc){
@@ -49,7 +140,7 @@ public class mainTest {
 		char value=0;
 		try{
 			BufferedReader entrada= new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Ingrese opcion");
+			
 			value=(char) (entrada.readLine().charAt(0));
 			
 		}catch(Exception exc){
@@ -62,18 +153,43 @@ public class mainTest {
 	
 	
 	public static void menu(char opc, Grafo predictor){
+		System.out.println("Ingrese opcion");
+		String genero=" ";
 		switch(opc){
-		case 'a':resolucionA(predictor,3,"arte");
+		case 'a':System.out.println("Ingrese  genero que quiere buscar");
+				 genero =generarString();
+				System.out.println("Ingrese la cantidad de generos de mayor incidencia de busqueda");
+				int N=IngresarValor();
+			resolucionA(predictor,N,genero);
 		break;
-		case 'b': resolucionB(predictor);
+		case 'b':System.out.println("Ingrese  genero que quiere buscar");
+			 genero =generarString();
+			resolucionB(predictor, genero);
 		break;
-		case 'c': resolucionC( predictor);
+		case 'c': System.out.println("Ingrese  genero que quiere buscar");
+		 genero =generarString();
+			resolucionC( predictor,genero);
 		break;
 		}
 	}
 
-	private static void resolucionC(Grafo predictor) {
-		ArrayList<vertice> vol= predictor.generosAfines("viajes");
+	private static String generarString() {
+		String value=" ";
+		try{
+			BufferedReader entrada= new BufferedReader(new InputStreamReader(System.in));
+			
+			value= entrada.readLine();
+			
+		}catch(Exception exc){
+			System.out.println(exc);
+		}
+		
+		
+		return value;
+	}
+
+	private static void resolucionC(Grafo predictor, String gene) {
+		ArrayList<vertice> vol= predictor.generosAfines(gene);
 		System.out.println("cant generos afines "+vol.size());
 
 		for (vertice vertice : vol) {
@@ -82,8 +198,8 @@ public class mainTest {
 		
 	}
 
-	private static void resolucionB(Grafo predictor) {
-		 ArrayList<vertice> ab=predictor.generosBuscadosPostA("arte");
+	private static void resolucionB(Grafo predictor,String gene) {
+		 ArrayList<vertice> ab=predictor.generosBuscadosPostA(gene);
 			System.out.println("tamanio punto b "+ab.size());
 		 for (vertice vertice : ab) {
 			System.out.print(vertice.getNombre()+" ");
